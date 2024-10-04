@@ -87,6 +87,95 @@ public class Main {
         System.out.println("A derekszogu haromszog kerulete: "+k_h+", terulete: "+t_h);
     }
 }
+```
+
+## 2. lépés
+
+Az előbbi megoldás mellett lehetséges, hogy a háromszög kerület- és területszámító függvényeit használjuk
+a téglalap adataira, vagy éppen fordítva. Az objektum-orientált programozás alapgondolata, hogy az 
+adatokat és a hozzájuk kapcsolódó függvényeket egy egységbe, ún. osztályba, szervezzük. Ezért defináljuk 
+a Teglalap és DerekszoguHaromszog osztályokat a Teglalap.java illetve DerekszoguHaromszog.java elnevezésű
+fájlokban. A főprogramban ezeket az osztályokat fogjuk példányosítani, más szóval: létrehozzuk a konkrét
+derékszögű háromszögnek és a konkrét téglalapnak megfelelő objektumokat a **new** kulcsszó használatával. 
+Ekkor adjuk meg azon téglalap és háromszög adatait (oldalhosszakat), amelyekkel dolgzunk a programban.
+
+Ha több téglalapunk vagy több háromszögünk lenne, akkor többször példányosítanánk az osztályokat, azaz a 
+new kulcsszó-t tartalmazó sorokhoz hasonló további sorokat szerepeltetnénk a programban). Ugyanakkor
+az osztályok leírását, azaz a Teglalap.java illetve DerekszoguHaromszog.java elnevezésű
+fájlokat elég lenne egyszer létrehoznunk. Ez logikus, hiszen ezek a fájlok általában írják le, hogy az épp
+készülő programunkban egy téglalap illetve háromszög milyen adataival dolgozunk (jelen példában: 
+csak az oldalhosszakkal), és azokkal az adatokkal
+milyen műveleteket végzünk (a példánkban: kerület és területszámítást). 
+A Teglalap.java illetve DerekszoguHaromszog.java elnevezésű
+fájlok tehát egyfajta általános leírást
+adnak a téglalapokról és a derékszögű háromszögekről abban az értelemben, hogy semmi olyan nem 
+szerepel bennük, ami csak egy konkrét téglapra vagy csak egy konkrét derékszögű háromszögre lenne
+igaz: nyilván egy más oldalhosszúságú
+téglalapok és háromszögek esetében is ugyanolyan módon végezzük a terület és kerület számítását. 
+
+Teglalap.java:
 
 ```
-FOLYT. KÖV.
+public class Teglalap {
+    private double a;
+    private double b;
+
+    public Teglalap(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public double kerulet() {
+        return 2*a+2*b;
+    }
+
+    public double terulet() {
+        return a*b;
+    }
+}
+```
+
+DerekszoguHaromszog.java:
+
+```
+public class DerekszoguHaromszog {
+    private double a;
+    private double b;
+
+    public DerekszoguHaromszog(double a, double b) {
+        this.a=a;
+        this.b=b;
+    }
+
+    public double kerulet() {
+        double c = Math.sqrt( Math.pow(a,2) + Math.pow(b,2) );
+        return a+b+c;
+    }
+
+    public double terulet() {
+        return a*b/2;
+    }
+}
+```
+
+Main.java: 
+
+```
+public class Main {
+    public static void main(String[] args) {
+        // Egy a=10 és b=20 oldalhosszusagu teglalap kerulete es terulete
+        Teglalap tgl = new Teglalap(10, 20);
+        double k = tgl.kerulet();
+        double t = tgl.terulet();
+
+        // Egy a_h=3 es b_h=4 befogokkal rendelkezo derekszogu haromszog
+        // kerulete es terulete
+        DerekszoguHaromszog h = new DerekszoguHaromszog(3,4);
+        double k_h = h.kerulet();
+        double t_h = h.terulet();
+
+        System.out.println("A teglalap kerulete: "+k+", terulete: "+t);
+        System.out.println("A derekszogu haromszog kerulete: "+k_h+", terulete: "+t_h);
+    }
+}
+```
