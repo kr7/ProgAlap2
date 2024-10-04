@@ -97,7 +97,7 @@ adatokat és a hozzájuk kapcsolódó függvényeket egy egységbe, ún. osztál
 a Teglalap és DerekszoguHaromszog osztályokat a Teglalap.java illetve DerekszoguHaromszog.java elnevezésű
 fájlokban. A főprogramban ezeket az osztályokat fogjuk példányosítani, más szóval: létrehozzuk a konkrét
 derékszögű háromszögnek és a konkrét téglalapnak megfelelő objektumokat a **new** kulcsszó használatával. 
-Ekkor adjuk meg azon téglalap és háromszög adatait (oldalhosszakat), amelyekkel dolgzunk a programban.
+Ekkor adjuk meg azon téglalap és háromszög adatait (oldalhosszakat), amelyekkel ténylegesen dolgozunk a programban.
 
 Ha több téglalapunk vagy több háromszögünk lenne, akkor többször példányosítanánk az osztályokat, azaz a 
 new kulcsszó-t tartalmazó sorokhoz hasonló további sorokat szerepeltetnénk a programban). Ugyanakkor
