@@ -50,8 +50,6 @@ A programuk "javítása" érdekében első lépésként a kerület és területs
 Main.java:
 
 ```
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
     public static double teglalap_kerulete(double a, double b) {
