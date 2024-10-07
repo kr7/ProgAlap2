@@ -399,20 +399,51 @@ Main.java:
 
 ```
 public class Main {
-
-    ...
-    
+    ...   
     public static void main(String[] args) {
-   
         ...
-        
         Teglalap tgl = new Teglalap(10, 20);
-
         ...
-        
         Sikidom si = tgl;
     }
 }
 ```
 
 ## 5. lépés: leszármaztatott osztályok, öröklés
+
+A négyzet egy olyan speciális téglalap, amelynek szélessége megegyezik a magasságával. Éppenséggel egy teljesen új osztályt is létrehozhatnánk a négyzeteknek, de inkább kihasználjuk az előbbi megfigyelést, és "leszármaztatjuk" a négyzet osztályt a téglalap osztályból (kódban: "extends Teglalap"). A leszármaztatott "Negyzet" osztály örökli a "Teglalap" tulajdonságait, metódusait (azaz például akkor is van kerület- és területszámító metódusa, ha ezt nem implementáltuk kölün) és ráadásul, mivel a téglalap használható "Sikidom"-ként, ezért a "Negyzet" is használható lesz "Sikidom"-ként is. Arra viszont figyelnünk kell, hogy ha valaki megváltoztatná a "Negyzet" akármelyik oldalhosszúságát is, akkor - a téglalappal ellentétben - a másik oldal hossza is változik, ezért felülírjuk a "Teglalap" setA() és setB() metódusait. Az ősosztály, azaz a "Teglalap" metódusaira a "super" referencián keresztül hivatkozhatunk: a példában az új setA() és setB() metódus meghívja az ősosztály setA() és setB() metódusait:
+
+Negyzet.java:
+
+```
+public class Negyzet extends Teglalap {
+    public Negyzet(double a) {
+        super(a,a);
+    }
+    public void setA(double a) {
+        super.setA(a);
+        super.setB(a);
+    }
+    public void setB(double b) {
+        super.setA(b);
+        super.setB(b);
+    }
+}
+```
+
+Main.java:
+
+```
+public class Main {
+
+    public static double terulet_otszorose(Sikidom s) {
+        return 5 * s.terulet();
+    }
+
+    public static void main(String[] args) {
+        ...
+        Sikidom si = new Negyzet(12);
+        System.out.println(terulet_otszorose(si));
+    }
+}
+```
