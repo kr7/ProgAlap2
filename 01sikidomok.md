@@ -418,7 +418,7 @@ Negyzet.java:
 ```
 public class Negyzet extends Teglalap {
     public Negyzet(double a) {
-        super(a,a);
+        super(a,a); // A Teglalap konstruktorát hívjuk
     }
     public void setA(double a) {
         super.setA(a);
@@ -447,3 +447,29 @@ public class Main {
     }
 }
 ```
+
+## 6. lépés: osztályszintű (statikus) metódusok
+
+Egyes metódusok nem az objektumpéldányhoz, hanem az osztály egészéhez kapcsolódnak, és ezért az osztály példányosítása nélkül is meghívhatóak. Példa:
+
+Negyzet.java:
+
+```
+public class Negyzet extends Teglalap {
+    ...    
+    public static String getVersion() {
+        return "1.0";
+    }
+}
+```
+
+Main.java:
+
+```
+public class Main {
+    ...
+    public static void main(String[] args) {
+        ...
+        System.out.println(Negyzet.getVersion());
+    }
+}
