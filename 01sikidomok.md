@@ -121,12 +121,16 @@ public class Teglalap {
     private double b;
 
     public Teglalap(double a, double b) {
-        this.a = a;
+        this.a = a; 
         this.b = b;
+        // A "this" kulcsszón keresztül hivatkozunk az objektumpéldány
+        // adattagjaira és metódusaira
     }
 
     public double kerulet() {
         return 2*a+2*b;
+        // Ide nem kell "this", mert ennek a metódusnak nincs saját "a" és "b" változója,
+        // ekkor az "a" és "b" az objektumpéldány "a" és "b" változóját jelenti.
     }
 
     public double terulet() {
@@ -473,3 +477,15 @@ public class Main {
         System.out.println(Negyzet.getVersion());
     }
 }
+```
+
+A "régi ismerősünk", a *public static void main(String[] args)* is egy ilyen statikus metódus.
+
+## 7. lépés: tömblisták (ArrayList)
+
+Egy tömblistában tömbszerűen tárolhatunk objektumpéldányokat. Lásd: [https://www.w3schools.com/java/java_arraylist.asp](https://www.w3schools.com/java/java_arraylist.asp) .
+
+A tömblista elemeit (ha pl. számokat vagy String-eket tárolunk benne) a Collection.sort() metódussal tudjuk rendezni.
+
+## 8. lépés: absztrakt osztályok
+
