@@ -3,7 +3,7 @@
 Az objektumorientált programozás legfontosabb fogalmait egy példán keresztül mutatjuk be lépésről lépésre.
 Konkrétan síkidomok kerületét és területét fogjuk számolni Java-ban írt kód segítségével.
 
-## 0. Lépés 
+## 0. lépés: terület és kerületszámítás 
 
 Kiszámoljuk egy 10 és 20 hosszúságú oldalakkal rendelkező téglalap, valamint egy 3 és 4 hosszú befogókkal rendelkező derékszögű háromszög kerületét és területét.
 
@@ -32,7 +32,7 @@ public class Main {
 }
 ```
 
-## 1. Lépés 
+## 1. lépés: függvények 
 
 Miközben az előbbi kód helyes eredményeket számol, a feladat ilyen megoldása sok szempontból sem praktikus. 
 Ha például nem csak egy háromszög kerületét szeretnénk kiszámolni, hanem több háromszöggel is dolgozunk, akkor
@@ -89,7 +89,7 @@ public class Main {
 }
 ```
 
-## 2. lépés
+## 2. lépés: osztályok defíniciója
 
 Az előbbi megoldás mellett lehetséges, hogy a háromszög kerület- és területszámító függvényeit használjuk
 a téglalap adataira, vagy éppen fordítva. Az objektum-orientált programozás alapgondolata, hogy az 
@@ -190,3 +190,229 @@ A "szokatlan" metódus az ún. konstruktor, az osztály példányosításakor ez
 
 Az osztályok definíciója során megadtuk az osztályok adattagjainak és metódusainak **láthatóságát** (a példában **private** és **public**, de létezik **protected** és **default** láthatóság is, lásd: [https://www.w3schools.com/java/java_modifiers.asp](https://www.w3schools.com/java/java_modifiers.asp) ). 
 
+## 3. lépés: setter és getter metódusok
+
+Az osztályok adattagjait tipikusan private láthatósági szintűnek definiáljuk, ugyanis úgy tekintjük, hogy ez a téglalap illetve háromszög "magánügye". Az osztály "felhasználója" (egy programozó, aki használja az osztályt) az osztály metódusain keresztül kommunikál az objektumokkal, nem szükséges, sőt nem is kívánatos, hogy azon gondolkozzon, vajon a derékszögű háromszög hogyan számítja ki a saját kerületét és területét, egyáltalán milyen adatokat tárol (például a derékszögű háromszög tárolja-e az átfogó hosszát vagy sem). Előfordulhat, hogy az osztály adattagjai összefüggenek egymással (ha változik az egyik befogó hossza, nyilván változik az átfogó hossza is), ekkor az osztály "felelőssége", hogy valamelyik adattagjának változása esetén a többit is megfelelően változtassa. Ez viszont csak úgy lehetséges, ha nem engdejük, hogy az osztály adattagait az osztályon kívülről módosítsák. Ezért definiáljuk ezeket private láthatóságúnak. 
+
+Ahhoz, hogy mégis lehessen módosítani az osztály adattagait, tipikusan getter és setter függvényeket (getA, getB; setA, setB) veszük fel:
+
+DerekszoguHaromszog.java:
+
+```
+public class DerekszoguHaromszog {
+    private double a;
+    private double b;
+
+    public DerekszoguHaromszog(double a, double b) {
+        this.a=a;
+        this.b=b;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public double kerulet() {
+        double c = Math.sqrt( Math.pow(a,2) + Math.pow(b,2) );
+        return a+b+c;
+    }
+
+    public double terulet() {
+        return a*b/2;
+    }
+}
+```
+
+Teglalap.java:
+
+```
+public class Teglalap {
+    private double a;
+    private double b;
+
+    public Teglalap(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public double kerulet() {
+        return 2*a+2*b;
+    }
+
+    public double terulet() {
+        return a*b;
+    }
+}
+```
+
+Ezt követően akár meg is változtathatjuk a derékszögű háromszögeket reprezentáló osztály "belső működését" anélkül, hogy a program többi részén bármit is változtatni kellene. Példaként tételezzük fel, hogy a derékszögű háromszög mostantól előre kiszámolja az átfogó hosszát.
+
+DerekszoguHaromszog.java:
+
+```
+public class DerekszoguHaromszog {
+    private double a;
+    private double b;
+    private double c;
+
+    public DerekszoguHaromszog(double a, double b) {
+        this.a=a;
+        this.b=b;
+        calculate_c();
+    }
+
+    private void calculate_c() {
+        c =  Math.sqrt( Math.pow(a,2) + Math.pow(b,2) );
+    }
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+        calculate_c();
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+        calculate_c();
+    }
+
+    public double kerulet() {
+        return a+b+c;
+    }
+
+    public double terulet() {
+        return a*b/2;
+    }
+}
+```
+
+## 4. lépés: interfészek
+
+A derkészögű háromszög és a téglalap is síkidom. Szükségünk lehet olyan metódusokra, amelyek tetszőleges síkidomok esetében használhatóak. Példaként tételezzük fel, hogy van egy metódusunk, amely kiszámolja egy síkidom területének ötszörösét és azt szeretnénk, hogy ez ne csak téglalappal (vagy csak derékszögű háromszöggel) működjön, hanem minden olyan síkidommal, amely ki tudja számolni a saját területét. 
+
+A metódus tehát így néz ki:
+
+```
+    public static double terulet_otszorose(Sikidom s) {
+        return 5 * s.terulet();
+    }
+```
+
+Ha ezt a metódust most létrehozzuk a Main.java-ban, hibaüzenetet kapunk. Hogyan írhajtuk le azt, hogy a **Sikidom** egy olyan valami, ami rendelkezik egy olyan függvénnyel, amellyel lehetővé teszi a területének lekérdezését? Ehhez az alábbi interfészt fogjuk definiálni, amely tehát azt mondja meg, hogy a **Sikidom** rendelkezik egy területlekérdezést, valamint egy kerületlekérdezést lehetővé tevő függvénnyel:
+
+Sikidom.java:
+
+```
+public interface Sikidom {
+    public double kerulet();
+    public double terulet();
+}
+```
+
+Ezt követően a hibaüzenet eltűnik az előbbi függvény definíciójánál, ugyanakkor ezt a függvényt még nem tudjuk meghívni egy téglalappal vagy egy derékszögű háromszöggel, mert nem mondtuk meg, hogy ezek síkidomok. Ehhez módosítjuk a két osztály definícióját:
+
+Teglalap.java:
+
+```
+public class Teglalap implements Sikidom {
+   ...
+}
+```
+
+DerekszoguHaromszog.java:
+
+```
+public class DerekszoguHaromszog implements Sikidom {
+   ...
+}
+```
+
+Az előbbi metódust mostmár meghívhatjuk akár egy téglalappal, akár egy derékszögű háromszöggel:
+
+Main.java:
+
+```
+public class Main {
+
+    public static double terulet_otszorose(Sikidom s) {
+        return 5 * s.terulet();
+    }
+
+    public static void main(String[] args) {
+        // Egy a=10 és b=20 oldalhosszusagu teglalap kerulete es terulete
+        Teglalap tgl = new Teglalap(10, 20);
+        double k = tgl.kerulet();
+        double t = tgl.terulet();
+
+        // Egy a_h=3 es b_h=4 befogokkal rendelkezo derekszogu haromszog
+        // kerulete es terulete
+        DerekszoguHaromszog h = new DerekszoguHaromszog(3,4);
+        double k_h = h.kerulet();
+        double t_h = h.terulet();
+
+        System.out.println("A teglalap kerulete: "+k+", terulete: "+t);
+        System.out.println("A derekszogu haromszog kerulete: "+k_h+", terulete: "+t_h);
+
+        System.out.println(terulet_otszorose(tgl));
+        System.out.println(terulet_otszorose(h));
+    }
+}
+```
+
+Egy Sikidom "típusú" változóban pedig akár téglalapot, akár derékszögű hároszöget tárolhatunk:
+
+Main.java:
+
+```
+public class Main {
+
+    ...
+    
+    public static void main(String[] args) {
+   
+        ...
+        
+        Teglalap tgl = new Teglalap(10, 20);
+
+        ...
+        
+        Sikidom si = tgl;
+    }
+}
+```
+
+## 5. lépés: leszármaztatott osztályok, öröklés
