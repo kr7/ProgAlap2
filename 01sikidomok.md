@@ -489,3 +489,6 @@ A tömblista elemeit (ha pl. számokat vagy String-eket tárolunk benne) a Colle
 
 ## 8. lépés: absztrakt osztályok
 
+## 9. lépés: szemétgyűjtés (garbage collection)
+
+
