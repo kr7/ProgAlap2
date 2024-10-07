@@ -97,7 +97,7 @@ adatokat és a hozzájuk kapcsolódó függvényeket egy egységbe, ún. osztál
 a Teglalap és DerekszoguHaromszog osztályokat a Teglalap.java illetve DerekszoguHaromszog.java elnevezésű
 fájlokban. A főprogramban ezeket az osztályokat fogjuk példányosítani, más szóval: létrehozzuk a konkrét
 derékszögű háromszögnek és a konkrét téglalapnak megfelelő objektumokat a **new** kulcsszó használatával. 
-Ekkor adjuk meg azon téglalap és háromszög adatait (oldalhosszakat), amelyekkel ténylegesen dolgozunk a programban.
+A példányosítás során adjuk meg azon téglalap és háromszög adatait (oldalhosszakat), amelyekkel ténylegesen dolgozunk a programban.
 
 Ha több téglalapunk vagy több háromszögünk lenne, akkor többször példányosítanánk az osztályokat, azaz a 
 new kulcsszó-t tartalmazó sorokhoz hasonló további sorokat szerepeltetnénk a programban). Ugyanakkor
@@ -179,3 +179,14 @@ public class Main {
     }
 }
 ```
+
+Ha alaposabban szemügyre vesszük az osztályok leírását, látjuk, hogy az osztályokat leíró kód
+
+- az osztályok által reprezentált téglalap illetve háromszög adatait tároló változók definíciójával (oldalhosszakat tároló "a" és "b" double-k) kezdődik, ezeket az osztályok **adattagjainak** nevezzük,
+- majd egy "szokatlan" metódussal folytatódik, amelynek a neve megegyezik az osztály nevével,
+- ezt követik a terület- és kerületszámító **metódusok**. (Az objektumorientált programozás kontextusában az egyes objektumok "függvényeit" metódusnak nevezzük.)
+
+A "szokatlan" metódus az ún. konstruktor, az osztály példányosításakor ez kerül végrehajtásra. Az osztályokat elnevezésüknek megfelelő ".java" fájlokban tároljuk, azaz "Teglalap.java" ill. "DerekszoguHaromszog.java" fájlban  (ez lényeges!).
+
+Az osztályok definíciója során megadtuk az osztályok adattagjainak és metódusainak **láthatóságát** (a példában **private** és **public**, de létezik **protected** és **default** láthatóság is, lásd: [https://www.w3schools.com/java/java_modifiers.asp](https://www.w3schools.com/java/java_modifiers.asp) ). 
+
