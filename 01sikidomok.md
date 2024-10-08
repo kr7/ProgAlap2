@@ -546,6 +546,33 @@ public class Teglalap extends Sikidom {
 ...
 ```
 
+Mostmár tudjuk rendezni a síkidomok listáját.
+
+Main.java:
+
+```
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Main {
+    ...
+    public static void main(String[] args) {
+        ...
+        ArrayList<Sikidom> sikidomok_listaja = new ArrayList<Sikidom>();
+        sikidomok_listaja.add(new Negyzet(10));
+        sikidomok_listaja.add(new DerekszoguHaromszog(1,1));
+        sikidomok_listaja.add(new Teglalap(2,3));
+
+        Collections.sort(sikidomok_listaja);
+
+        for (Sikidom s : sikidomok_listaja) {
+            System.out.println(s);
+        }
+    }
+}
+```
+
+
 ## 9. lépés: toString
 
 
