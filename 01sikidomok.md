@@ -485,7 +485,7 @@ A "régi ismerősünk", a *public static void main(String[] args)* is egy ilyen 
 
 Egy tömblistában tömbszerűen tárolhatunk objektumpéldányokat. Lásd: [https://www.w3schools.com/java/java_arraylist.asp](https://www.w3schools.com/java/java_arraylist.asp) .
 
-A tömblista elemeit (ha pl. számokat vagy String-eket tárolunk benne) a Collection.sort() metódussal tudjuk rendezni.
+A tömblista elemeit (ha pl. számokat vagy String-eket tárolunk benne) a Collections.sort() metódussal tudjuk rendezni.
 
 ## 8. lépés: absztrakt osztályok
 
@@ -506,9 +506,9 @@ public class Main {
 }
 ```
 
-Vajon tudjuk-e ezt a tömblistát rendezni a Collection.sort()-tal?
+Vajon tudjuk-e ezt a tömblistát rendezni a Collections.sort()-tal?
 
-Ebben a pillanatban még nem, mert nincs megadva, hogy mi szerint akarjuk a síkidomokat rendezni. Elméletileg nyilván sok szempont szerint rendezhetnénk a síkidomokat: a területük, kerületük, leghosszabb/legrövidebb oldaluk hosszúsága... alapján. Gyakorlatilag a Collection.sort() akkor tud rendezni egy tömblistát, ha a benne szereplő objektumok rendelkeznek a java.lang.Comparable interfészben definiált compareTo(Object) metódussal.
+Ebben a pillanatban még nem, mert nincs megadva, hogy mi szerint akarjuk a síkidomokat rendezni. Elméletileg nyilván sok szempont szerint rendezhetnénk a síkidomokat: a területük, kerületük, leghosszabb/legrövidebb oldaluk hosszúsága... alapján. Gyakorlatilag a Collections.sort() akkor tud rendezni egy tömblistát, ha a benne szereplő objektumok rendelkeznek a java.lang.Comparable interfészben definiált compareTo(Object) metódussal.
 
 Tegyük fel, hogy területük alapján szeretnénk a síkidomokat rendezni. Az összehasonlító metódus tehát nem kimondottan négyzetekre vagy téglalapokra vonatkozik, hanem általános lesz, bármilyen síkidomra használható, ami meg tudja mondani a maga területét. Ez alapján az az "érzésünk" lehet, hogy legjobb lenne ezt az összehasonlító metódust a "Sikidom" interfészben definiálni. Interfészben (legalábbis "főszabályként") nem lehet függvényeket implementálni. Ezért a "Sikidom"-ot interfészről absztrakt osztállyá változtatjuk, a "Teglalap"-ot és "DerekszoguHaromszog"-et pedig ebből fogjuk leszármaztatni.
 
