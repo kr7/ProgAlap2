@@ -575,10 +575,34 @@ public class Main {
 
 ## 9. lépés: toString
 
+A fenti kódot végrehajtva a rendezés ereménye az alábbi formában jelenik meg a standard outputon:
 
+```
+DerekszoguHaromszog@1ddc4ec2
+Teglalap@133314b
+Negyzet@b1bc7ed
+```
+
+A *System.out.println* alapvetően karakterláncokat (stringeket) ír ki. Amikor valamilyen más típusú objektumot kap, akkor meghívja annak *toString* metódusát, és a *toString* által visszaadott stringet írja ki. Na de honnan van a Teglalapnak, Negyzetnek illetve a DerekszoguHaromszognek toString metódusa, ha egyszer ilyet nem definiáltunk? A válasz az, hogy minden osztály leszármazottja az *Object*-nek, és az *Object*-től örökölték a *toString* metódust ahhoz hasonlóan, ahogy a "Negyzet" orokolte a terület- és kerületszámítást a "Teglalap"-tól. 
+
+Ugyanakkor a toString függvényt akár felül is írhatjuk, példaként tekintsük a Negyzet osztályt:
+
+```
+public class Negyzet extends Teglalap {
+    ...
+    public String toString() {
+        return getA()+" x "+getA()+"-s négyzet";
+    }
+}
+```
+
+Ennek megfelelően természetesen a standard outputon megjelenő kimenet is változik.
 
 ## 10. lépés: szemétgyűjtés (garbage collection)
 
+A már nem használt objektumok által lefoglalt erőforrásokat (pl. memóriát) a szemétgyűjtő (garbage collector) Java-ban automatikusan felszabadítja. Ezzel alapesetben nem kell foglalkoznunk. Ennek ellenére, ha a végrehajtás egy pontján meg akarjuk hívni a szemétgyűjtőt, ezt így tehetjük meg:
 
-
+```
+System.gc();
+```
 
