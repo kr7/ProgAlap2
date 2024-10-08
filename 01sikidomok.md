@@ -415,7 +415,7 @@ public class Main {
 
 ## 5. lépés: leszármaztatott osztályok, öröklés
 
-A négyzet egy olyan speciális téglalap, amelynek szélessége megegyezik a magasságával. Éppenséggel egy teljesen új osztályt is létrehozhatnánk a négyzeteknek, de inkább kihasználjuk az előbbi megfigyelést, és "leszármaztatjuk" a négyzet osztályt a téglalap osztályból (kódban: "extends Teglalap"). A leszármaztatott "Negyzet" osztály örökli a "Teglalap" tulajdonságait, metódusait (azaz például akkor is van kerület- és területszámító metódusa, ha ezt nem implementáltuk kölün) és ráadásul, mivel a téglalap használható "Sikidom"-ként, ezért a "Negyzet" is használható lesz "Sikidom"-ként is. Arra viszont figyelnünk kell, hogy ha valaki megváltoztatná a "Negyzet" akármelyik oldalhosszúságát is, akkor - a téglalappal ellentétben - a másik oldal hossza is változik, ezért felülírjuk a "Teglalap" setA() és setB() metódusait. Az ősosztály, azaz a "Teglalap" metódusaira a "super" referencián keresztül hivatkozhatunk: a példában az új setA() és setB() metódus meghívja az ősosztály setA() és setB() metódusait:
+A négyzet egy olyan speciális téglalap, amelynek szélessége megegyezik a magasságával. Éppenséggel egy teljesen új osztályt is létrehozhatnánk a négyzeteknek, de inkább kihasználjuk az előbbi megfigyelést, és leszármaztatjuk a négyzet osztályt a téglalap osztályból (kódban: "extends Teglalap"). A leszármaztatott "Negyzet" osztály örökli a "Teglalap" tulajdonságait, metódusait (azaz például akkor is van kerület- és területszámító metódusa, ha ezt nem implementáltuk kölün) és ráadásul, mivel a téglalap használható "Sikidom"-ként, ezért a "Negyzet" is használható lesz "Sikidom"-ként is. Arra viszont figyelnünk kell, hogy ha valaki megváltoztatná a "Negyzet" akármelyik oldalhosszúságát is, akkor - a téglalappal ellentétben - a másik oldal hossza is változik, ezért felülírjuk a "Teglalap" setA() és setB() metódusait. Az ősosztály, azaz a "Teglalap" metódusaira a "super" referencián keresztül hivatkozhatunk: a példában az új setA() és setB() metódus meghívja az ősosztály setA() és setB() metódusait:
 
 Negyzet.java:
 
@@ -489,6 +489,69 @@ A tömblista elemeit (ha pl. számokat vagy String-eket tárolunk benne) a Colle
 
 ## 8. lépés: absztrakt osztályok
 
-## 9. lépés: szemétgyűjtés (garbage collection)
+Létrehozunk egy tömblistát különböző síkidomoknak:
+
+```
+import java.util.ArrayList;
+
+public class Main {
+    ...
+    public static void main(String[] args) {
+        ...
+        ArrayList<Sikidom> sikidomok_listaja = new ArrayList<Sikidom>();
+        sikidomok_listaja.add(new Negyzet(10));
+        sikidomok_listaja.add(new DerekszoguHaromszog(1,1));
+        sikidomok_listaja.add(new Teglalap(2,3));
+    }
+}
+```
+
+Vajon tudjuk-e ezt a tömblistát rendezni a Collection.sort()-tal?
+
+Ebben a pillanatban még nem, mert nincs megadva, hogy mi szerint akarjuk a síkidomokat rendezni. Elméletileg nyilván sok szempont szerint rendezhetnénk a síkidomokat: a területük, kerületük, leghosszabb/legrövidebb oldaluk hosszúsága... alapján. Gyakorlatilag a Collection.sort() akkor tud rendezni egy tömblistát, ha a benne szereplő objektumok rendelkeznek a java.lang.Comparable interfészben definiált compareTo(Object) metódussal.
+
+Tegyük fel, hogy területük alapján szeretnénk a síkidomokat rendezni. Az összehasonlító metódus tehát nem kimondottan négyzetekre vagy téglalapokra vonatkozik, hanem általános lesz, bármilyen síkidomra használható, ami meg tudja mondani a maga területét. Ez alapján az az "érzésünk" lehet, hogy legjobb lenne ezt az összehasonlító metódust a "Sikidom" interfészben definiálni. Interfészben (legalábbis "főszabályként") nem lehet függvényeket implementálni. Ezért a "Sikidom"-ot interfészről absztrakt osztállyá változtatjuk, a "Teglalap"-ot és "DerekszoguHaromszog"-et pedig ebből fogjuk leszármaztatni.
+
+Sikidom.java:
+
+```
+public abstract class Sikidom implements java.lang.Comparable {
+    public abstract double kerulet();
+    public abstract double terulet();
+
+    public int compareTo(Object si) {
+        double t = ((Sikidom)si).terulet();
+        if (this.terulet() > t) {
+            return 1;
+        }
+        if (this.terulet() < t) {
+            return -1;
+        }
+        return 0;
+    }
+}
+```
+
+DerekszoguHaromszog.java:
+
+```
+public class DerekszoguHaromszog extends Sikidom {
+...
+```
+
+Teglalap.java:
+
+```
+public class Teglalap extends Sikidom {
+...
+```
+
+## 9. lépés: toString
+
+
+
+## 10. lépés: szemétgyűjtés (garbage collection)
+
+
 
 
