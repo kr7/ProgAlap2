@@ -131,7 +131,7 @@ Ennek persze semmi értelme sincsen (azon kívül persze, hogy illusztráljuk, h
 ezért amilyen gyorsan létrehoztuk ezt a metódust, olyan gyorsan el is felejtjük. 
 
 
-## 2. lépés: hibakezelésként
+## 2. lépés: hibakezelés
 
 Ha alaposabban szemügyrevesszük a korábbi kódot, ahol "elkaptuk" a hibát, látható, hogy az a függvény, amelyben a hiba felléphet (amely a kivételt dobja) a try blokkba került, az ezt követő 
 catch blokk pedig a hibát kezelő kódot tartalmazza. A példában a hibakezelés bármilyen Exception típusú kivételt kezel, a konkrét hibát reprezentáló objektumra az "e" referenciával hivatkozunk.
