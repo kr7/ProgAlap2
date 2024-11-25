@@ -374,6 +374,7 @@ public class Main {
         h = felhasznaloiHaromszog();
         System.out.println( h.kerulet() );
     }
+}
 ```
 
 ## 5. lépés: záró megjegyzés
