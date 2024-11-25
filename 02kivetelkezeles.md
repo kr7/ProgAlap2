@@ -14,7 +14,7 @@ programunkat, akkor a standard error-ra kiírt hibaüzenet általában ugyanabba
 
 A kovetkezőekben egy példán keresztül mutatjuk be a kivételek kezelését. 
 
-# 0. lépés: téglalapok kivételkezelés nélkül
+## 0. lépés: téglalapok kivételkezelés nélkül
 
 Tekintsük az alábbi, téglalapokat reprezentáló osztályt.
 
@@ -42,7 +42,7 @@ public class Teglalap {
 }
 ```
 
-# 1. lépés: kivétel dobása negatív oldalhossz esetén
+## 1. lépés: kivétel dobása negatív oldalhossz esetén
 
 Tételezzük fel, hogy olyan alkalmazás számára végzünk szoftvrefejlesztést, amiben nincs értelme a negatív oldalhosszúságú téglalapoknak, ezért ha valaki negatív oldalhosszúságú téglalapot hozna létre, kivételt dobunk:
 
@@ -131,4 +131,36 @@ Ennek persze semmi értelme sincsen (azon kívül persze, hogy illusztráljuk, h
 ezért amilyen gyorsan létrehoztuk ezt a metódust, olyan gyorsan el is felejtjük. 
 
 
-FOLYT.KÖV!
+## 2. lépés: hibakezelés
+
+Ha alaposabban szemügyrevesszük a korábbi kódot, ahol "elkaptuk" a hibát, látható, hogy az a függvény, amelyben a hiba felléphet (amely a kivételt dobja) a try blokkba került, az ezt követő 
+catch blokk pedig a hibát kezelő kódot tartalmazza. A példában a hibakezelés bármilyen Exception típusú kivételt kezel, a konkrét hibát reprezentáló objektumra az "e" referenciával hivatkozunk.
+Nézzünk egy másik példát a hibakezelésre. Ebben az esetben, ha nem sikerült létrehozni a téglalapot, új adatokat kérünk be a felhasználótól:
+
+Main.java:
+
+```
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+public class Main {
+    public static Teglalap felhasznaloiTeglalap() {
+        JFrame frame = new JFrame("Teglalap adatai");
+        String a_str = JOptionPane.showInputDialog(frame, "a: ");
+        String b_str = JOptionPane.showInputDialog(frame, "b: ");
+        double a = Double.parseDouble(a_str);
+        double b = Double.parseDouble(b_str);
+        try {
+            return new Teglalap(a, b);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, e.getMessage());
+            return felhasznaloiTeglalap();
+        }
+    }
+
+    public static void main(String[] args) {
+        Teglalap t = felhasznaloiTeglalap();
+        System.out.println( t.terulet() );
+    }
+}
+```
