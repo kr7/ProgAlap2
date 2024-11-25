@@ -273,9 +273,7 @@ public class HaromszogException extends Exception {
 }
 ```
 
-Ahhoz, hogy a két különböző okból dobott kivételt különböző módon kezeljük a catch blockban, a két különböző kivétel számára két külön osztályt hozunk létre. Vegyük észre, hogy a kivételek hierarchikus struktúrát alkotnak: mindkét alábbi kivétel a HaromszogException leszármazottja, maga a HaromszogException pedig az Exception leszármazottja. Más szavakkal: minden HaromszogOldalaNemLehetNegativException egyben egy HaromszogException is, de nem minden HaromszogException-re igaz, hogy HaromszogOldalaNemLehetNegativException, mert egy HaromszogException lehet HaromszogegyenlotlensegNemTeljesulException. Ezert a catch blockban egy HaromszogException mind a kétféle hibát "elkapja", a 
-HaromszogOldalaNemLehetNegativException viszont csak azt, amikor olyan háromszöget próbálunk létrehozni, aminek egyik oldala negatív hosszúságú.
-
+Ahhoz, hogy a két különböző okból dobott kivételt különböző módon kezeljük a catch blockban, a két különböző kivétel számára két külön osztályt hozunk létre: 
 
 HaromszogOldalaNemLehetNegativException.java:
 
@@ -296,6 +294,11 @@ public class HaromszogegyenlotlensegNemTeljesulException extends HaromszogExcept
     }
 }
 ```
+
+Vegyük észre, hogy a kivételek hierarchikus struktúrát alkotnak: mindkét fenti kivétel a HaromszogException leszármazottja, maga a HaromszogException pedig az Exception leszármazottja. Más szavakkal: minden HaromszogOldalaNemLehetNegativException egyben egy HaromszogException is, de nem minden HaromszogException-re igaz, hogy HaromszogOldalaNemLehetNegativException, mert egy HaromszogException lehet HaromszogegyenlotlensegNemTeljesulException is. Ezért a catch blockban egy HaromszogException mind a kétféle hibát "elkapja", a 
+HaromszogOldalaNemLehetNegativException viszont csak azt, amikor olyan háromszöget próbálunk létrehozni, aminek egyik oldala negatív hosszúságú.
+
+A Haroszog.java az alábbiak szerint módosul:
 
 Haromszog.java:
 
