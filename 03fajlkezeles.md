@@ -95,18 +95,18 @@ try {
     Scanner reader = new Scanner(f);
     while (reader.hasNextLine()) {
         String sor = reader.nextLine();
-            System.out.println(sor);
-        }
-        reader.close();
-    } catch (FileNotFoundException e) {
-        System.out.println("Hiba történt.");
-        e.printStackTrace();
+        System.out.println(sor);
     }
+    reader.close();
+} catch (FileNotFoundException e) {
+    System.out.println("Hiba történt.");
+    e.printStackTrace();
+}
 
 ...
 ```
 
-Manapság a gájlok írására és olvasására inkább try-with-resources blokkot használunk. 
+Manapság a fájlok írására és olvasására inkább try-with-resources blokkot használunk. 
 Ekkor nem szükséges a fájlokat lezárnunk, mert ez automatikusan megtörténik:
 
 Main.java:
