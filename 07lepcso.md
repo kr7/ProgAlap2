@@ -4,7 +4,7 @@
 
 Egy 1 lépcsőfokból álló lépcsőn nyilván 1-féleképpen tudunk felmenni (lépünk egyet és kész).
 
-Egy 2 képcsófokból álló lépcső esetében vagy egyet lépünk és ekkor a következő lépésben kell még egyet lépnünk; vagy rögtön két lépcsőfokot lépünk és akkor rögtön fent vagyunk a lépcső tetején. Ez tehát két lehetőség.
+Egy 2 lépcsőfokból álló lépcső esetében vagy egyet lépünk és ekkor a következő lépésben kell még egyet lépnünk; vagy rögtön két lépcsőfokot lépünk és akkor rögtön fent vagyunk a lépcső tetején. Ez tehát két lehetőség.
 
 Könnyen látható, hogy egy három lépcsőfokból álló lépcsőn 3-féleképp tudunk felmenni (1+1+1, 1+2, 2+1). 
 
